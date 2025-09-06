@@ -5,13 +5,13 @@ import folium
 from folium.plugins import MarkerCluster
 
 # 2. Definir el área geográfica y las etiquetas de las características a descargar
-place = "Curitiba, Brazil"
-tags = {"highway": "bus_stop"}
-description = "Bus Stop"
+place = "Toluca, México"
+tags = {"amenity": "pharmacy", "shop":"chemist"}
+description = "Farmacias de Toluca"
 zoom_level = 13
 
 # 3. Especificar qué campos mostrar dentro de las ventanas emergentes de los marcadores
-popup_fields = ["name", "operator", "network", "ref"]
+popup_fields = ["name", "amenity", "shop"]
 
 # 4. Descargar las características de las paradas de autobús de OpenStreetMap para el lugar elegido
 gdf = ox.features_from_place(place, tags=tags)
@@ -39,7 +39,7 @@ folium.TileLayer(
 ).add_to(m)
 
 # 9. Añadir marcadores de paradas de autobús al mapa utilizando un plugin MarkerCluster
-marker_cluster = MarkerCluster(name="Bus Stops (Cluster)").add_to(m)
+marker_cluster = MarkerCluster(name="Farmacias (Cluster)").add_to(m)
 for _, row in gdf.iterrows():
     coords = row.geometry
     if coords.geom_type == "Point":
